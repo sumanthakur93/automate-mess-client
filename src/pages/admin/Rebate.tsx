@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useMe from "../../hooks/useMe";
 import Navbar from "../../components/Navbar";
 import { GetRebateApiResponseType, getAdminRebateApi } from "../../api";

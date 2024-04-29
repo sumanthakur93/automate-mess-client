@@ -28,7 +28,7 @@ const useRefresh = () => {
         }else if(!isAccessToken && !isRefreshToken) {
             setIsAuth(false)
         }else if(!isAccessToken && isRefreshToken) {
-            refreshApi().then((res) => {
+            refreshApi().then(() => {
                 setIsAuth(true)
             }).catch((err) => {
                 handleError(err)

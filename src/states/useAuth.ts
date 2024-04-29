@@ -3,7 +3,7 @@ import { AuthStateType } from "./states.types"
 
 const useAuth = create<AuthStateType>((set) => ({
     isAuth: false,
-    setIsAuth: (isAuth) => set((state) => ({ isAuth })),
+    setIsAuth: (isAuth) => set(() => ({ isAuth })),
 }))
 
 export default useAuth

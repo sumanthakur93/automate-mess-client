@@ -4,7 +4,7 @@ import { RefreshStateType } from "./states.types";
 const useRefreshState = create<RefreshStateType>((set) => ({
   refreshState: false,
   setRefreshState: (refreshState: boolean) =>
-    set((state) => ({ refreshState })),
+    set(() => ({ refreshState })),
 }));
 
 export default useRefreshState;

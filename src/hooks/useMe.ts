@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { AdminApiResponseType, MeApiResponseType, adminApi, meApi } from '../api'
 import handleError from '../utils/handleError'
 

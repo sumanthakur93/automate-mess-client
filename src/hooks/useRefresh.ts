@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useAuth from '../states/useAuth'
 // import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -28,7 +28,7 @@ const useRefresh = () => {
         }else if(!isAccessToken && !isRefreshToken) {
             setIsAuth(false)
         }else if(!isAccessToken && isRefreshToken) {
-            refreshApi().then((res) => {
+            refreshApi().then(() => {
                 setIsAuth(true)
             }).catch((err) => {
                 handleError(err)

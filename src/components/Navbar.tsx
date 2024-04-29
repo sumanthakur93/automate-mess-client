@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import nit_logo from "../assets/nit_logo.png";
-import { UserCircle } from "lucide-react";
+// import { UserCircle } from "lucide-react";
 import { AdminApiResponseType, MeApiResponseType, logoutApi } from "../api";
 import { Link, useNavigate } from "react-router-dom";
 import handleError from "../utils/handleError";

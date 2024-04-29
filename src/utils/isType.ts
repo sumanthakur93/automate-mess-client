@@ -1,3 +1,3 @@
-const isType = <Type>(thing: any): thing is Type => true;
+// const isType = <Type>(thing: any): thing is Type => true;
 
-export default isType
+// export default isType

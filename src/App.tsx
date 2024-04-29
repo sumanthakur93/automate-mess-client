@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,7 +7,7 @@ import useAuth from "./states/useAuth";
 import MessBill from "./pages/MessBill";
 import Rebate from "./pages/Rebate";
 import AdminRebate from "./pages/admin/Rebate";
-import AdminMessBill from "./pages/admin/MessBill";
+// import AdminMessBill from "./pages/admin/MessBill";
 import Profile from "./pages/Profile";
 import AdminProfile from "./pages/admin/Profile"
 import AdminRegister from "./pages/AdminRegister";

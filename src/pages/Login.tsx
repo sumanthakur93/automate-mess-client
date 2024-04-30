@@ -30,7 +30,7 @@ export default function Login() {
       const payload = loginSchema.parse({ rollNumber, password });
       await loginApi(payload)
 
-      navigate("/")
+      // navigate("/")
       // window.location.reload();
     } catch (err) {
       handleError(err)

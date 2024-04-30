@@ -31,7 +31,7 @@ export default function Login() {
       await loginApi(payload)
 
       navigate("/")
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       handleError(err)
     } finally{

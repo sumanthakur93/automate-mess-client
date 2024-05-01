@@ -3,7 +3,7 @@ import useMe from "../hooks/useMe";
 import Navbar from "../components/Navbar";
 import * as Dialog from "@radix-ui/react-dialog";
 import handleError from "../utils/handleError";
-import { GetRebateApiResponseType, addRebateApi, getRebateApi } from "../api";
+import { GetRebateApiResponseType, addRebateApi, getRebateApi, delRebateApi } from "../api";
 
 export default function Rebate() {
   const me = useMe();
@@ -12,22 +12,22 @@ export default function Rebate() {
   const [isLoading, setIsLoading] = useState(false);
   const [rebate, setRebate] = useState<GetRebateApiResponseType[]>([])
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const responses = await Promise.all([getRebateApi()])
-                setRebate(responses[0].data)
-            } catch (err) {}
-        })()
-    },[])
+  useEffect(() => {
+    (async () => {
+      try {
+        const responses = await Promise.all([getRebateApi()])
+        setRebate(responses[0].data)
+      } catch (err) { }
+    })()
+  }, [])
 
   async function handleSaveChanges(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.preventDefault();
-    if((new Date(to).getTime() - new Date(from).getTime()) <= 0){
-        alert("to should be greater than from")
-        return
+    if ((new Date(to).getTime() - new Date(from).getTime()) <= 0) {
+      alert("to should be greater than from")
+      return
     }
     setIsLoading(true);
     try {
@@ -38,7 +38,7 @@ export default function Rebate() {
         rollNumber: me?.rollNumber as string,
         days: Math.ceil(
           (new Date(to).getTime() - new Date(from).getTime()) /
-            (1000 * 3600 * 24)
+          (1000 * 3600 * 24)
         ),
       });
       window.location.reload();
@@ -48,7 +48,23 @@ export default function Rebate() {
     } finally {
       setIsLoading(false);
     }
+  } 
+
+  async function handleDelete(rebateId: string) {
+    try {
+        console.log(rebateId);
+      await delRebateApi( {rebateId }); 
+      // Refresh rebate data after successful deletion
+
+      const responses = await Promise.all([getRebateApi()])
+      setRebate(responses[0].data)
+
+    } catch (err) {
+      handleError(err);
+    }
   }
+
+
 
   return (
     <div className="homeBg h-screen">
@@ -63,24 +79,30 @@ export default function Rebate() {
       >
         <p>Rebate</p>
         <table className="w-full">
-            <thead>
-                <th>S.No.</th>
-                <th>Rebate Id</th>
-                <th>No. of Days</th>
-                <th>From</th>
-                <th>To</th>
-            </thead>
-            <tbody>
-                {rebate.map((ele, index) => (
-                    <tr key={`${ele.rebateId}`} className="text-center border" >
-                        <td>{index + 1}</td>
-                        <td>{ele.rebateId}</td>
-                        <td>{ele.days}</td>
-                        <td>{ele.from}</td>
-                        <td>{ele.to}</td>
-                    </tr>
-                ))}
-            </tbody>
+          <thead>
+            <th>S.No.</th>
+            <th>Rebate Id</th>
+            <th>No. of Days</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Delete</th>
+          </thead>
+          <tbody>
+            {rebate.map((ele, index) => (
+              <tr key={`${ele.rebateId}`} className="text-center border" >
+                <td>{index + 1}</td>
+                <td>{ele.rebateId}</td>
+                <td>{ele.days}</td>
+                <td>{ele.from}</td>
+                <td>{ele.to}</td>
+                <td>
+                  <button onClick={() => handleDelete(ele.rebateId)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
       <Dialog.Root>
@@ -132,13 +154,13 @@ export default function Rebate() {
             </fieldset>
             <div className="mt-[25px] flex justify-end">
               {/* <Dialog.Close asChild> */}
-                <button
-                  className="text-center w-full bg-primary text-white text-xl mt-3 p-3"
-                  onClick={handleSaveChanges}
-                  disabled={isLoading}
-                >
-                  Save Changes
-                </button>
+              <button
+                className="text-center w-full bg-primary text-white text-xl mt-3 p-3"
+                onClick={handleSaveChanges}
+                disabled={isLoading}
+              >
+                Save Changes
+              </button>
               {/* </Dialog.Close> */}
             </div>
             <Dialog.Close asChild>

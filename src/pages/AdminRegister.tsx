@@ -23,6 +23,7 @@ export default function AdminRegister() {
         const payload = adminRegisterSchema.parse({ name, email, password, adminKey })
         await adminRegisterApi(payload)
         navigate("/")
+        window.location.reload();
     } catch (err) {
         handleError(err)
     } finally {

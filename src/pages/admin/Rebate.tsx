@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useMe from "../../hooks/useMe";
 import Navbar from "../../components/Navbar";
-import { GetRebateApiResponseType, getAdminRebateApi } from "../../api";
+import { GetRebateApiResponseType, getAdminRebateApi, AdminDelRebateApi } from "../../api";
 
 export default function Rebate() {
   const me = useMe();
@@ -10,10 +10,25 @@ export default function Rebate() {
     (async () => {
         try {
             const responses = await Promise.all([getAdminRebateApi()])
+            
             setRebate(responses[0].data)
         } catch (err) {}
     })()
 },[])
+
+async function handleDelete(rebateId: string) {
+  try {
+      console.log(rebateId);
+    await AdminDelRebateApi( {rebateId }); 
+    // Refresh rebate data after successful deletion
+
+     window.location.reload();
+
+  } catch (err) {
+    
+  }
+}
+
   return (
     <div className="homeBg h-screen">
       <Navbar me={me} />
@@ -30,18 +45,26 @@ export default function Rebate() {
           <thead>
             <th>S.No.</th>
             <th>Rebate Id</th>
+            <th>Roll Number</th>
             <th>No. of Days</th>
             <th>From</th>
             <th>To</th>
+            <th>Delete</th>
           </thead>
           <tbody>
             {rebate.map((ele, index) => (
               <tr key={`${ele.rebateId}`} className="text-center border">
                 <td>{index + 1}</td>
                 <td>{ele.rebateId}</td>
+                <td>{ ele.rollNumber }</td>
                 <td>{ele.days}</td>
                 <td>{ele.from}</td>
-                <td>{ele.to}</td>
+                <td>{ele.to}</td> 
+                <td>
+                  <button onClick={() => handleDelete(ele.rebateId)}>
+                      Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

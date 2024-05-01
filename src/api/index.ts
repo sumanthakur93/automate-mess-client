@@ -107,21 +107,30 @@ export type GetTransactionApiResponseApi = {
 export const getTransactionApi = () =>
   api.get<GetTransactionApiResponseApi[]>("/api/messBill/getTransaction");
 
+export type delRebateApiPayloadType = {
+  rebateId: string;
+};
+
+export const delRebateApi = (payload: delRebateApiPayloadType) => api.post("/api/rebate/delRebate", payload)
+export const AdminDelRebateApi = (payload: delRebateApiPayloadType) => api.post("/api/rebate/admin/delRebate", payload);
+
 export type AddRebateApiPayloadType = {
   rollNumber: string;
   days: number;
   from: string;
   to: string;
 };
+
 export const addRebateApi = (payload: AddRebateApiPayloadType) =>
   api.post("/api/rebate/addRebate", payload);
 
 export type GetRebateApiResponseType = {
   rebateId: string;
+  rollNumber: string;
   from: string;
   to: string;
   days: number;
-};
+};   
 export const getRebateApi = () =>
   api.get<GetRebateApiResponseType[]>("/api/rebate/getRebate");
 

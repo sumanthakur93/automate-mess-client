@@ -22,6 +22,7 @@ export default function AdminLogin() {
         const payload = adminLoginSchema.parse({ email, password, adminKey })
         await adminLoginApi(payload)
         navigate("/")
+        window.location.reload();
     } catch (err) {
         handleError(err)
     } finally {

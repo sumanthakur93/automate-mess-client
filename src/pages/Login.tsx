@@ -4,7 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import handleError from "../utils/handleError";
 import { loginSchema } from "../zod/loginSchema.zod";
 import { loginApi } from "../api";
@@ -21,7 +21,7 @@ export default function Login() {
   const [rollNumber, setRollNumber] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,8 +30,8 @@ export default function Login() {
       const payload = loginSchema.parse({ rollNumber, password });
       await loginApi(payload)
 
-      navigate("/")
-      window.location.reload();
+      // navigate("/")
+      // window.location.reload();
     } catch (err) {
       handleError(err)
     } finally{
